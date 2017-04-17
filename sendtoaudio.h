@@ -9,11 +9,11 @@ class SendToAudio:public QObject
     Q_OBJECT
 public:
     SendToAudio();
+
 public slots:
-
     void writeSharedMemory();
-private:
 
+private:
     QSharedMemory sharedMemory;
 };
 

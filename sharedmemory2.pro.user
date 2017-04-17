@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.2.0, 2017-04-11T17:19:13. -->
+<!-- Written by QtCreator 4.2.0, 2017-04-13T17:54:59. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -285,8 +285,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">sharedmemory2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/vandung1.nguyen/Desktop/test/Head Unit/Service/2/sharedmemory2.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">sharedmemory22</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/vandung1.nguyen/Desktop/QT project/Appmain/sharedmemory2.pro</value>
     <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">sharedmemory2.pro</value>

@@ -53,9 +53,16 @@
 #include <QBuffer>
 #include <QtCore/QDebug>
 #include "thread.h"
+#include "sendtoaudio.h"
+#include "QTimer"
 
 
 ReceiveFromAudio::ReceiveFromAudio()
+{
+
+}
+
+ReceiveFromAudio::~ReceiveFromAudio()
 {
 
 }
@@ -80,9 +87,19 @@ void ReceiveFromAudio::readSharedMemory()
     sharedMemory.unlock();
 
      if (string=="Hello")
-     {
+     {   
          emit musicIsPlayed();
-         qDebug()<< "da nhan duoc, dang choi nhac";
+         qDebug()<< "Music is playing now";
      }
+
+     buffer.close();
+}
+void ReceiveFromAudio::run()
+{
+    while(true)
+    {
+        this -> readSharedMemory();
+        sleep(1);
+    }
 }
 

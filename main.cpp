@@ -60,14 +60,12 @@ int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
 
-    ReceiveFromAudio receiveFromAudio;
-    SendToAudio sendToAudio;
-
-    QObject::connect(&receiveFromAudio,ReceiveFromAudio::musicIsPlayed,&sendToAudio,SendToAudio::writeSharedMemory);
-
-    Thread thread;
-    thread.start();
-
+   ReceiveFromAudio receiveFromAudio;
+   SendToAudio sendToAudio;
+//   sendToAudio.writeSharedMemory();
+   QObject::connect(&receiveFromAudio,ReceiveFromAudio::musicIsPlayed,&sendToAudio,SendToAudio::writeSharedMemory);
+   QObject::connect(&receiveFromAudio,QThread::finished,&sendToAudio,QObject::deleteLater);
+   receiveFromAudio.start();
     return application.exec();
 }
 

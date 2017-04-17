@@ -2,13 +2,11 @@ QT += widgets
 
 SOURCES += main.cpp \
     receivefromaudio.cpp \
-    sendtoaudio.cpp \
-    thread.cpp
+    sendtoaudio.cpp
 
 HEADERS += \
     receivefromaudio.h \
-    sendtoaudio.h \
-    thread.h
+    sendtoaudio.h
 
 # Forms and resources
 FORMS +=

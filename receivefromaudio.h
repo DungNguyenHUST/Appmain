@@ -64,6 +64,8 @@ class ReceiveFromAudio : public QThread
 
   public:
     ReceiveFromAudio();
+    ~ReceiveFromAudio();
+    void run() override;
 
 public slots:
     void readSharedMemory();
