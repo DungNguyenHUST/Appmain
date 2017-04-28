@@ -53,6 +53,9 @@
 #include "receivefromaudio.h"
 #include "sendtoaudio.h"
 #include "thread.h"
+#include "musicplayer.h"
+#include "weather.h"
+
 #include <QDebug>
 
 //! [0]
@@ -62,11 +65,32 @@ int main(int argc, char *argv[])
 
    ReceiveFromAudio receiveFromAudio;
    SendToAudio sendToAudio;
-//   sendToAudio.writeSharedMemory();
-   QObject::connect(&receiveFromAudio,ReceiveFromAudio::musicIsPlayed,&sendToAudio,SendToAudio::writeSharedMemory);
+   MusicPlayer musicPlayer;
+   Weather weather;
+
+
+    // ket noi phan hoi ve
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsPlayed(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsStopped(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsNexted(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicAddPlaylist(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsPaused(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+   QObject::connect(&receiveFromAudio,SIGNAL(runClimate(QString)),&sendToAudio,SLOT(writeSharedMemory(QString)));
+
+
+
    QObject::connect(&receiveFromAudio,QThread::finished,&sendToAudio,QObject::deleteLater);
+
+   // ket noi ham quan ly choi nhac
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsPlayed(QString)),&musicPlayer,SLOT(play()));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsStopped(QString)),&musicPlayer,SLOT(stop()));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsNexted(QString)),&musicPlayer,SLOT(next()));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicAddPlaylist(QString)),&musicPlayer,SLOT(add()));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsPaused(QString)),&musicPlayer,SLOT(pause()));
+   QObject::connect(&receiveFromAudio,SIGNAL(musicIsPaused(QString)),&weather,SLOT(displayWeather()));
+
    receiveFromAudio.start();
-    return application.exec();
+   return application.exec();
 }
 
 //! [0]

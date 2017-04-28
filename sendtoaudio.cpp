@@ -9,12 +9,33 @@ SendToAudio::SendToAudio()
 
 }
 
-void SendToAudio::writeSharedMemory()
+void SendToAudio::writeSharedMemory(QString event)
 {
-    sharedMemory.setKey("server1");
-
-    QString event = "Hi";
-    // load into shared memory
+    if (event =="played")
+    {
+         sharedMemory.setKey("server7");
+    }
+    else if (event =="stopped")
+    {
+         sharedMemory.setKey("server8");
+    }
+    else if (event =="nexted")
+    {
+         sharedMemory.setKey("server9");
+    }
+    else if (event =="added")
+    {
+         sharedMemory.setKey("server10");
+    }
+    else if (event =="paused")
+    {
+        sharedMemory.setKey("server11");
+    }
+    else if (event=="runclimate")
+    {
+        sharedMemory.setKey ("server12");
+    }
+   // sharedMemory.setKey("server1");
     QBuffer buffer;
     buffer.open(QBuffer::ReadWrite);
     QDataStream out(&buffer);
@@ -23,7 +44,7 @@ void SendToAudio::writeSharedMemory()
 
     if (!sharedMemory.create(size))
     {
-        qDebug()<<"Unable to create shared memory segment";
+        //qDebug()<<"Unable to create shared memory segment";
         return;
     }
     sharedMemory.lock();

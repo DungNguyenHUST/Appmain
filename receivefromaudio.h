@@ -55,7 +55,6 @@
 #include <QObject>
 #include <QThread>
 #include <QTimer>
-
 //! [0]
 class ReceiveFromAudio : public QThread
 {
@@ -66,12 +65,15 @@ class ReceiveFromAudio : public QThread
     ReceiveFromAudio();
     ~ReceiveFromAudio();
     void run() override;
-
-public slots:
-    void readSharedMemory();
+    void readSharedMemory(QString);
 
 signals:
-    void musicIsPlayed();
+    void musicIsPlayed(const QString);
+    void musicIsStopped(const QString);
+    void musicIsNexted(const QString);
+    void musicIsPaused(const QString);
+    void musicAddPlaylist(const QString);
+    void runClimate(const QString);
 
   private:
     QSharedMemory sharedMemory;

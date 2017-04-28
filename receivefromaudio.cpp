@@ -55,6 +55,9 @@
 #include "thread.h"
 #include "sendtoaudio.h"
 #include "QTimer"
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QSound>
+
 
 
 ReceiveFromAudio::ReceiveFromAudio()
@@ -68,9 +71,9 @@ ReceiveFromAudio::~ReceiveFromAudio()
 }
 
 
-void ReceiveFromAudio::readSharedMemory()
+void ReceiveFromAudio::readSharedMemory(QString server)
 {
-    sharedMemory.setKey("server");
+    sharedMemory.setKey(server);
     if (!sharedMemory.attach())
     {
         return ;
@@ -86,19 +89,58 @@ void ReceiveFromAudio::readSharedMemory()
     in >>string;
     sharedMemory.unlock();
 
-     if (string=="Hello")
+     if (string=="play")
      {   
-         emit musicIsPlayed();
-         qDebug()<< "Music is playing now";
+         emit musicIsPlayed("played");
+         qDebug()<<string;
+         qDebug()<< "Music is playing now";  
      }
-
+     else if (string=="stop")
+     {
+         emit musicIsStopped ("stopped");
+         qDebug()<<string;
+         qDebug()<< "Music is stopping";
+     }
+     else if (string =="next")
+     {
+         emit musicIsNexted ("nexted");
+         qDebug()<<string;
+         qDebug()<< "Music is nextting";
+     }
+     else if  (string == "add")
+     {
+         emit musicAddPlaylist ("added");
+         qDebug()<<string;
+         qDebug()<< "add play list from device";
+     }
+     else if (string == "pause")
+     {
+         emit musicIsPaused ("paused");
+         qDebug()<<string;
+          qDebug()<< "Pause music";
+     }
+     else if (string =="climate")
+     {
+         emit runClimate ("runclimate");
+         qDebug()<<string;
+     }
      buffer.close();
 }
 void ReceiveFromAudio::run()
 {
-    while(true)
-    {
-        this -> readSharedMemory();
+   while (true)
+    {       
+        this -> readSharedMemory("server1");
+    //    sleep(2);
+        this -> readSharedMemory("server2");
+   //     sleep(2);
+        this -> readSharedMemory("server3");
+   //     sleep(2);
+        this -> readSharedMemory("server4");
+    //     sleep(2);
+         this -> readSharedMemory("server5");
+    //     sleep(2);
+          this -> readSharedMemory("server6");
         sleep(1);
     }
 }
